@@ -1,0 +1,46 @@
+buildscript{
+    ext{
+        kotlin_version = '1.5.20'
+    }
+}
+
+plugins{
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+    id 'org.jetbrains.kotlin.plugin.spring' version "$kotlin_version"
+    id 'org.jetbrains.kotlin.plugin.allopen' version "$kotlin_version"
+    id 'org.jetbrains.kotlin.plugin.noarg' version "$kotlin_version"
+    id 'org.springframework.boot' version '2.5.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group 'app.demo.api'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.h2database:h2'
+}
+
+compileKotlin{
+    kotlinOptions{
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+noArg{
+    invokeInitializers = true
+}
+
+jar{
+    manifest {
+        attributes('Main-Class': 'app.demo.api.DemoAPIApplicationKt')
+    }
+}
